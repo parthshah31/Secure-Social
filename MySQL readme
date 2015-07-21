@@ -1,0 +1,114 @@
+MySQL command order
+INPUT
+OUTPUT
+
+1) ACCESSING MYSQL
+
+sudo sh -c ‘echo /usr/local/mysql/bin > /etc/paths.d/mysql’
+<no output>
+
+cmd+T
+
+mysql
+Welcome to the MySQL monitor.  Commands end with ; or \g.
+Your MySQL connection id is 218
+Server version: 5.6.25 MySQL Community Server (GPL)
+
+Copyright (c) 2000, 2015, Oracle and/or its affiliates. All rights reserved.
+
+Oracle is a registered trademark of Oracle Corporation and/or its
+affiliates. Other names may be trademarks of their respective
+owners.
+
+Type 'help;' or '\h' for help. Type '\c' to clear the current input statement.
+
+mysql>
+
+2) CREATING ACCOUNTS
+
+To start off you need to use the root account so you can have privileges to create new users
+
+Type in the following:
+
+mysqladmin -u root password ‘password’
+mysql -u root -p
+Enter password: ‘password’
+Welcome to the MySQL monitor.  Commands end with ; or \g.
+Your MySQL connection id is 389
+Server version: 5.6.25 MySQL Community Server (GPL)
+
+Copyright (c) 2000, 2015, Oracle and/or its affiliates. All rights reserved.
+
+Oracle is a registered trademark of Oracle Corporation and/or its
+affiliates. Other names may be trademarks of their respective
+owners.
+
+Type 'help;' or '\h' for help. Type '\c' to clear the current input statement.
+
+mysql> CREATE USER 'parth'@'localhost' IDENTIFIED BY 'shah';
+Query OK, 0 rows affected (0.01 sec)
+
+mysql> GRANT ALL PRIVILEGES ON * . * TO 'parth'@'localhost';
+Query OK, 0 rows affected (0.01 sec)
+
+mysql> FLUSH PRIVILEGES;
+Query OK, 0 rows affected (0.01 sec)
+
+Then you can login from the new account using:
+
+mysql -u parth -p
+Enter password: shah
+Welcome to the MySQL monitor.  Commands end with ; or \g.
+Your MySQL connection id is 487
+Server version: 5.6.25 MySQL Community Server (GPL)
+
+Copyright (c) 2000, 2015, Oracle and/or its affiliates. All rights reserved.
+
+Oracle is a registered trademark of Oracle Corporation and/or its
+affiliates. Other names may be trademarks of their respective
+owners.
+
+Type 'help;' or '\h' for help. Type '\c' to clear the current input statement.
+
+3) CHECKING USERS AND DATABASES
+
+mysql> SELECT user, host from mysql.user;
++-------+-----------+
+| user  | host      |
++-------+-----------+
+| root  | 127.0.0.1 |
+| root  | ::1       |
+|       | localhost |
+| parth | localhost |
+| root  | localhost |
+|       | obis-air  |
+| root  | obis-air  |
++-------+-----------+
+7 rows in set (0.00 sec)
+
+mysql> SHOW databases;
++--------------------+
+| Database           |
++--------------------+
+| information_schema |
+| mysql              |
+| performance_schema |
+| test               |
++--------------------+
+4 rows in set (0.02 sec)
+
+4) REMOTE ACCESS
+
+mysql> CREATE USER 'anthony'@'72.194.125.168' IDENTIFIED BY 'badea';
+Query OK, 0 rows affected (0.00 sec)
+
+mysql> GRANT SHOW DATABASES ON * . * TO 'anthony'@'72.194.125.168'
+    -> ;
+Query OK, 0 rows affected (0.01 sec)
+
+mysql> FLUSH PRIVILEGES;
+Query OK, 0 rows affected (0.01 sec)
+
+Find the IP of the host database
+My IP: 99.111.31.94
+
